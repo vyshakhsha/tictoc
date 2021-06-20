@@ -3,6 +3,7 @@ var square = document.querySelectorAll('td');
 var flag = 0
 var player=""
 var count=0
+var gameover=0
 
 function clearboard() {
   for (var i = 0; i < square.length; i++) {
@@ -12,24 +13,28 @@ function clearboard() {
   document.querySelector("h2").textContent="";
   count=0
   console.log("Count is"+count)
-
+  gameover=0
 }
 
 restart.addEventListener('click', clearboard);
 
 
 function changemaker() {
-
-  if (flag == 0) {
-    this.textContent = 'X';
-    flag = 1
-    player="X"
-    win_check()
-  } else if (flag == 1) {
-    this.textContent = 'O';
-    flag = 0
-    player="O"
-    win_check()
+  if(gameover==0){
+    if (flag == 0) {
+      this.textContent = 'X';
+      flag = 1
+      player="X"
+      win_check()
+    } else if (flag == 1) {
+      this.textContent = 'O';
+      flag = 0
+      player="O"
+      win_check()
+    }
+  }
+  else{
+    alert("Please restart the game")
   }
 }
 
@@ -127,6 +132,7 @@ if ((document.querySelector("#box1").textContent == "X") && (document.querySelec
             }
             if(check_tie===1){
               document.querySelector("h2").textContent="GAME TIED";
+              gameover=1
             }
 
         }
@@ -137,4 +143,5 @@ if ((document.querySelector("#box1").textContent == "X") && (document.querySelec
 
 function winner(player){
   document.querySelector("h2").textContent="Player "+player+" won the game";
+  gameover=1
 }
